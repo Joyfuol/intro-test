@@ -1,6 +1,7 @@
 const body = document.querySelector("body");
 const button = document.querySelector("button");
-const tableCell = document.querySelectorAll("td, th");
+const tbody = document.querySelector("tbody");
+
 function generateRandomRGB() {
   const r = Math.floor(Math.random() * 256);
   const g = Math.floor(Math.random() * 256);
@@ -8,10 +9,24 @@ function generateRandomRGB() {
   return `rgb(${r}, ${g}, ${b})`;
 }
 
-button.addEventListener("click", function () {
-  body.style.backgroundColor = generateRandomRGB()
+let count = 0;
 
-  tableCell.forEach((cell) => {
-    cell.style.backgroundColor = generateRandomRGB()
-  });
+ 
+
+function addColorRow(serialNumber, colorCode) {
+  const newRow = tbody.insertRow()
+  newRow.innerHTML = `<tr>
+<td style="background-color: ${colorCode};">${serialNumber}</td>
+<td style="background-color: ${colorCode};">${colorCode}</td>
+</tr>
+
+`; 
+}
+
+button.addEventListener("click", function () {
+  const color = generateRandomRGB();
+
+  body.style.backgroundColor = color
+  addColorRow(++count, color);
+  
 });
